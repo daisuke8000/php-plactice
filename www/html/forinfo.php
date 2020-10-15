@@ -30,4 +30,22 @@ foreach($members as $key => $member){
 }
 
 
-?>
+//for => 繰り返し数が決まっている
+
+for($i = 0; $i < 10; $i++){
+    if($i === 5){
+    //break;
+    continue;
+    }
+    echo '<br />';
+    echo $i;
+}
+
+//while => 繰り返し数がきまっていない
+
+$j = 0;
+while($j < 5){
+    echo '<br />';
+    echo $j;
+    $j++;
+}
