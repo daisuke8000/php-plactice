@@ -2,6 +2,8 @@
 
 session_start();
 
+require 'validation.php';
+
 header('X-FRAME-OPTIONS:DENY');
 
 function h($str)
@@ -14,8 +16,10 @@ var_dump($_POST);
 echo '</pre>';
 
 $pageFlag = 0;
+$error = validation($_POST);
 
-if (!empty($_POST['btn_confirm'])) {
+
+if (!empty($_POST['btn_confirm']) && empty($error)) {
     $pageFlag = 1;
 }
 
@@ -25,11 +29,20 @@ if (!empty($_POST['btn_submit'])) {
 
 ?>
 
+<!doctype html>
+<html lang="ja">
 
-<!DOCTYPE html>
-<meta charset="utf-8">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<head></head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
 
 <body>
     <?php if ($pageFlag === 1) : ?>
@@ -42,7 +55,7 @@ if (!empty($_POST['btn_submit'])) {
         <?php echo h($_POST['email']); ?>
         <br>
         HomePage
-        <?php echo h($_POST['url']); ?>;
+        <?php echo h($_POST['url']); ?>
         <br>
         Gender
         <?php
@@ -52,22 +65,29 @@ if (!empty($_POST['btn_submit'])) {
                 if ($_POST['gender'] === '1') {
                     echo 'Woman';
                 }
-                ?>;
+                ?>
         <br>
         Age
         <?php
-        if ($_POST['age'] === '1'){echo '~19';}
-        elseif($_POST['age'] === '2'){echo '20~29';}
-        elseif($_POST['age'] === '3'){echo '30~39';}
-        elseif($_POST['age'] === '4'){echo '40~49';}
-        elseif($_POST['age'] === '5'){echo '50~59';}
-        elseif($_POST['age'] === '6'){echo '60~';}
-        ?>
+                if ($_POST['age'] === '1') {
+                    echo '~19';
+                } elseif ($_POST['age'] === '2') {
+                    echo '20~29';
+                } elseif ($_POST['age'] === '3') {
+                    echo '30~39';
+                } elseif ($_POST['age'] === '4') {
+                    echo '40~49';
+                } elseif ($_POST['age'] === '5') {
+                    echo '50~59';
+                } elseif ($_POST['age'] === '6') {
+                    echo '60~';
+                }
+                ?>
         <br>
         Detaile
         <?php
-        echo h($_POST['contact']);
-        ?>
+                echo h($_POST['contact']);
+                ?>
         <br>
         <input type="hidden" name="your_name" value="<?php echo h($_POST['your_name']); ?>">
         <input type="hidden" name="email" value="<?php echo h($_POST['email']); ?>">
@@ -101,40 +121,75 @@ if (!empty($_POST['btn_submit'])) {
 
         ?>
 
-    <form method="POST" action="input.php">
-        NAME
-        <input type="text" name="your_name" value="<?php echo h($_POST['your_name']); ?>">
-        <br>
-        EMAIL
-        <input type="email" name="email" value="<?php echo h($_POST['email']); ?>">
-        <br>
-        HomePage
-        <input type="url" name="url" value="<?php echo h($_POST['url']); ?>">
-        <br>
-        Gender
-        <input type="radio" name="gender" value="0">Man
-        <input type="radio" name="gender" value="1">Woman
-        <br>
-        Age
-        <select name="age">
-            <option value="">Pleage Select..</option>
-            <option value="1">~19</option>
-            <option value="2">20~29</option>
-            <option value="3">30~39</option>
-            <option value="4">40~49</option>
-            <option value="5">50~59</option>
-            <option value="6">60~</option>
-        </select>
-        <br>
-        Detaile
-        <textarea name="contact" value=<?php echo h($_POST['contact']); ?>></textarea>
-        <br>
-        Check
-        <input type="checkbox" name="caution" value="1">Check the notes!
-        <input type="submit" name="btn_confirm" value="Check!!">
-        <input type="hidden" name="csrf" value="<?php echo $token ?>">
-    </form>
-    <?php endif; ?>
+    <?php if(!empty($_POST['btn_confirm']) && !empty($error)) :?>
+    <ul>
+        <?php
+        foreach ($error as $value) :?>
+        <li><?php echo $value ; ?></li>
+        <?php endforeach ;?>
+    </ul>
+    <?php endif ;?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form method="POST" action="input.php">
+                    <div class="form-group">
+                        <label for="your_name">Name</label>
+                        <input type="text" class="form-control" id="your_name" name="your_name"
+                            value="<?php echo h($_POST['your_name']); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                            value="<?php echo h($_POST['email']); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="url">HomePage</label>
+                        <input type="url" class="form-control" id="url" name="url"
+                            value="<?php echo h($_POST['url']); ?>">
+                    </div>
+                    <div class="form-check form-check-inline">
+                        Gender
+                        <input class="form-check-input" id="gender1" type="radio" name="gender" value="male">
+                        <label class="form-check-label" for="gender1">Man</label>
+                        <input class="form-check-input" id="gender2" type="radio" name="gender" value="female">
+                        <label class="form-check-label" for="gender2">Woman</label>
+                    </div>
+                    <div></div>
+                    Age
+                    <select name="age">
+                        <option value="">Pleage Select..</option>
+                        <option value="1">~19</option>
+                        <option value="2">20~29</option>
+                        <option value="3">30~39</option>
+                        <option value="4">40~49</option>
+                        <option value="5">50~59</option>
+                        <option value="6">60~</option>
+                    </select>
+                    <br>
+                    Detaile
+                    <textarea name="contact" value=<?php echo h($_POST['contact']); ?>></textarea>
+                    <br>
+                    Check
+                    <input type="checkbox" name="caution" value="1">Check the notes!
+                    <input type="submit" name="btn_confirm" value="Check!!">
+                    <input type="hidden" name="csrf" value="<?php echo $token ?>">
+                </form>
+                <?php endif; ?>
+                <!-- Optional JavaScript -->
+                <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                    crossorigin="anonymous">
+                </script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                    crossorigin="anonymous">
+                </script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+                    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+                    crossorigin="anonymous">
+                </script>
 </body>
 
 </html>
