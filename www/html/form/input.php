@@ -148,48 +148,51 @@ if (!empty($_POST['btn_submit'])) {
                         <input type="url" class="form-control" id="url" name="url"
                             value="<?php echo h($_POST['url']); ?>">
                     </div>
-                    <div class="form-check form-check-inline">
-                        Gender
+                    <div class="form-check form-check-inline">Gender
                         <input class="form-check-input" id="gender1" type="radio" name="gender" value="male">
                         <label class="form-check-label" for="gender1">Man</label>
                         <input class="form-check-input" id="gender2" type="radio" name="gender" value="female">
                         <label class="form-check-label" for="gender2">Woman</label>
                     </div>
-                    <div></div>
-                    Age
-                    <select name="age">
-                        <option value="">Pleage Select..</option>
-                        <option value="1">~19</option>
-                        <option value="2">20~29</option>
-                        <option value="3">30~39</option>
-                        <option value="4">40~49</option>
-                        <option value="5">50~59</option>
-                        <option value="6">60~</option>
-                    </select>
-                    <br>
-                    Detaile
-                    <textarea name="contact" value=<?php echo h($_POST['contact']); ?>></textarea>
-                    <br>
-                    Check
-                    <input type="checkbox" name="caution" value="1">Check the notes!
-                    <input type="submit" name="btn_confirm" value="Check!!">
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <select class="form-control" id="age" name="age">
+                            <option value="">Pleage Select..</option>
+                            <option value="1">~19</option>
+                            <option value="2">20~29</option>
+                            <option value="3">30~39</option>
+                            <option value="4">40~49</option>
+                            <option value="5">50~59</option>
+                            <option value="6">60~</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact</label>
+                        <textarea class="form-control" id="contact" row="3" name="contact"
+                            value=<?php echo h($_POST['contact']); ?>></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="caution" name="caution" value="1">
+                        <label class="form-check-label" for="caution">Caution..OK?</label>
+                    </div>
+                    <input class="btn btn-success" type="submit" name="btn_confirm" value="Check!!">
                     <input type="hidden" name="csrf" value="<?php echo $token ?>">
-                </form>
-                <?php endif; ?>
-                <!-- Optional JavaScript -->
-                <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                    crossorigin="anonymous">
-                </script>
-                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-                    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-                    crossorigin="anonymous">
-                </script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-                    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-                    crossorigin="anonymous">
-                </script>
+            </div>
+        </div>
+    </div>
+    </form>
+    <?php endif; ?>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
