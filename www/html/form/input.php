@@ -104,6 +104,12 @@ if (!empty($_POST['btn_submit'])) {
 
     <?php if ($pageFlag === 2) : ?>
     <?php if ($_POST['csrf'] === $_SESSION['csrfToken']) : ?>
+
+    <?php require '../mainte/insert.php';
+    insertContact($_POST);
+    
+    ?>
+
     Send Message!
     <?php unset($_SERVER['csrfToken']); ?>
     <?php endif; ?>
@@ -149,9 +155,9 @@ if (!empty($_POST['btn_submit'])) {
                             value="<?php echo h($_POST['url']); ?>">
                     </div>
                     <div class="form-check form-check-inline">Gender
-                        <input class="form-check-input" id="gender1" type="radio" name="gender" value="male">
+                        <input class="form-check-input" id="gender1" type="radio" name="gender" value="0">
                         <label class="form-check-label" for="gender1">Man</label>
-                        <input class="form-check-input" id="gender2" type="radio" name="gender" value="female">
+                        <input class="form-check-input" id="gender2" type="radio" name="gender" value="1">
                         <label class="form-check-label" for="gender2">Woman</label>
                     </div>
                     <div class="form-group">
