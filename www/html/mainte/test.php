@@ -1,5 +1,10 @@
 <?php
 
+echo __FILE__;
+echo "<br>";
+echo (password_hash('password777',PASSWORD_BCRYPT));
+
+
 $contactFile = '.contact.dat';
 
 $fileContents = file_get_contents($contactFile);
